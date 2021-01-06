@@ -1,5 +1,7 @@
-SAMPLES = mkl-sample tbb-sample dal-sample mpi-sample sycl-sample
+BASE_SAMPLES = mkl-sample tbb-sample dal-sample mpi-sample 
+SYCL_SAMPLES = sycl-sample
 
+SAMPLES = ${BASE_SAMPLES} ${SYCL_SAMPLES}
 CXXFLAGS += -W
 
 all: ${SAMPLES}
@@ -20,7 +22,7 @@ sycl-sample: sycl-sample.cpp
 	${CXX} ${CXXFLAGS} -fsycl -fsycl-unnamed-lambda $< -o $@
 
 install:
-	cp ${SAMPLES} ${prefix}
+	cp ${SAMPLES} ${PREFIX}
 
 test: ${SAMPLES}
 	./mkl-sample
