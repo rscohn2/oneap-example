@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2020 Intel Corporation.
+#
+# SPDX-License-Identifier: MIT
+
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+-   repo: https://github.com/ambv/black
+    rev: stable
+    hooks:
+    -   id: black
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.3.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+-   repo: https://github.com/pycqa/doc8
+    rev: master
+    hooks:
+    -   id: doc8
+-   repo: https://github.com/pycqa/isort
+    rev: develop
+    hooks:
+    -   id: isort
+-   repo: https://github.com/pocc/pre-commit-hooks
+    rev: master
+    hooks:
+    -   id: clang-format
+-   repo: https://github.com/fsfe/reuse-tool
+    rev: master
+    hooks:
+    -   id: reuse

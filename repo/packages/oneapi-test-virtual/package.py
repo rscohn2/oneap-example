@@ -1,24 +1,8 @@
 # Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
-# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+# SPDX-License-Identifier: MIT
 
-# ----------------------------------------------------------------------------
-# If you submit this package back to Spack as a pull request,
-# please first remove this boilerplate and all FIXME comments.
-#
-# This is a template package file for Spack.  We've put "FIXME"
-# next to all the things you'll want to change. Once you've handled
-# them, you can save this file and test your package like this:
-#
-#     spack install oneapi-example-git
-#
-# You can edit this file again by typing:
-#
-#     spack edit oneapi-example-git
-#
-# See the Spack documentation for more information on packaging.
-# ----------------------------------------------------------------------------
 
 from spack import *
 
@@ -26,21 +10,35 @@ from spack import *
 class OneapiTestVirtual(Package):
     """Test oneapi package for spack."""
 
-    homepage = 'https://github.com/rscohn2/oneapi-example'
+    homepage = "https://github.com/rscohn2/oneapi-spack-tests"
+    url = "https://github.com/rscohn2/oneapi-spack-tests/tarball/main"
 
-    maintainers = ['rscohn2']
+    maintainers = ["rscohn2"]
 
-    version('0.1', sha256='655421c3018ed5bcf26a89ab03cc226328cc36f3cfedaba95a01d6fed6579d12')
+    variant(
+        "sycl",
+        default=True,
+        description="Include tests that depend on SYCL support in the compiler",
+    )
 
-    depends_on('intel-oneapi-dal')
-    depends_on('intel-oneapi-tbb')
-    depends_on('mkl')
-    depends_on('mpi')
+    version(
+        "0.1",
+        sha256="0eaea9c9c33b5d69c1a12044481bd38cc35f967a533b26a0d8c21c4c4d17249b",
+    )
 
-    def url_for_version(self, version):
-        url = 'https://github.com/rscohn2/oneapi-example/archive/v{0}.tar.gz'
-        return url.format(version)
+    depends_on("intel-oneapi-dal")
+    depends_on("tbb")
+    depends_on("mkl")
+    depends_on("mpi")
 
     def install(self, spec, prefix):
-        make()
-        make('install', 'prefix={0}'.format(prefix))
+        sycl = "+sycl" in self.spec
+        sycl_samples = "X=1" if sycl else "SYCL_SAMPLES="
+        make("-C", "samples", sycl_samples)
+        make(
+            "-C",
+            "samples",
+            "install",
+            "PREFIX={0}".format(prefix),
+            sycl_samples,
+        )

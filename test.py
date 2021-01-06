@@ -1,11 +1,19 @@
+# SPDX-FileCopyrightText: 2020 Intel Corporation
+#
+# SPDX-License-Identifier: MIT
+
 from subprocess import run
 
-# test compiler and all libraries with icpc
-run('spack install oneapi-test-basic%oneapi', shell=True)
 
-# use virtual dependences for mpi and mkl
-run('spack install oneapi-test-virtual%oneapi ^intel-oneapi-mpi ^intel-oneapi-mkl', shell=True)
+def check(cmd):
+    run(cmd, shell=True, check=True)
 
-# test libraries with g++
-run('spack install oneapi-test-basic sycl=False', shell=True)
 
+for package in [
+    'oneapi-test-basic%oneapi',
+    # test virtual dependencies
+    'oneapi-test-virtual%oneapi ^intel-oneapi-mpi ^intel-oneapi-mkl ^intel-oneapi-tbb',
+    # use g++ and skip SYCL sample
+    'oneapi-test-basic sycl=False',
+]:
+    check(f'spack install --no-checksum {package}')

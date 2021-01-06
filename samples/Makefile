@@ -1,4 +1,8 @@
-BASE_SAMPLES = mkl-sample tbb-sample dal-sample mpi-sample 
+# SPDX-FileCopyrightText: 2020 Intel Corporation
+#
+# SPDX-License-Identifier: MIT
+
+BASE_SAMPLES = mkl-sample tbb-sample dal-sample mpi-sample
 SYCL_SAMPLES = sycl-sample
 
 SAMPLES = ${BASE_SAMPLES} ${SYCL_SAMPLES}
@@ -33,4 +37,3 @@ test: ${SAMPLES}
 
 clean:
 	rm -f ${SAMPLES}
-

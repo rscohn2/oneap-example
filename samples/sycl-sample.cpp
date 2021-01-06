@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 Intel Corporation
+//
+// SPDX-License-Identifier: MIT
+
 #include <CL/sycl.hpp>
 
 int main() {
@@ -5,7 +9,6 @@ int main() {
 
   sycl::queue q;
   int *a = sycl::malloc_shared<int>(data_size, q);
-  
 
   q.parallel_for(data_size, [=](auto id) { a[id] = 1; }).wait();
 }

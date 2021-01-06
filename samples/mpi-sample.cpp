@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 Intel Corporation
+//
+// SPDX-License-Identifier: MIT
+
 #include <stdio.h>
 
 #include "mpi.h"
@@ -21,7 +25,7 @@ int main() {
 
   // Print off a hello world message
   printf("Hello world from processor %s, rank %d out of %d processors\n",
-	 processor_name, world_rank, world_size);
+         processor_name, world_rank, world_size);
 
   // Finalize the MPI environment.
   MPI_Finalize();

@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2019-2020 Intel Corporation
+#
+# SPDX-License-Identifier: MIT
+
+on: [push, pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: spack/spack
+        path: spack
+    - name: Install compilers
+      run: |
+          source spack/share/spack/setup-env.sh
+          spack install intel-oneapi-compilers
+          spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+          spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+    - name: Checks and tests
+      run: |
+          source spack/share/spack/setup-env.sh
+          spack repo add ./repo
+          spack style
+          python test.py
