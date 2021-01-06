@@ -19,12 +19,6 @@ jobs:
       with:
         repository: spack/spack
         path: spack
-    - name: Install compilers
-      run: |
-          source spack/share/spack/setup-env.sh
-          spack install intel-oneapi-compilers
-          spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
-          spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
     - name: Style and package tests
       run: |
           pre-commit run --all
