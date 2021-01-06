@@ -41,9 +41,15 @@ repos:
       language: system
       pass_filenames: false
       always_run: true
+    - id: install-compilers
+      name: install-compilers
+      entry: python install-compilers.py
+      language: system
+      pass_filenames: false
+      always_run: true
     - id: package-tests
       name: package-tests
-      entry: python test.py
+      entry: python package-tests.py
       language: system
       pass_filenames: false
       always_run: true

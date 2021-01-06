@@ -17,15 +17,19 @@ The files here test oneapi support in spack. It installs compilers,
 and uses the icpx and gcc to build programs that use the oneapi
 libraries and SYCL.
 
-Setup spack and install compilers::
+Setup spack::
 
   git clone https://github.com/spack/spack.git
   source spack/share/spack/setup-env.sh
-  spack install intel-oneapi-compilers
-  spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
-  spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
 
-Add the spack repo with test packages::
+Install prerequisites for testing::
 
-  spack repo add ./repo
-  python test.py
+  pip install -r requirements.txt
+
+Run tests::
+
+  pre-commit run --all
+
+Rerun package tests::
+
+  pre-commit run --all package-tests
