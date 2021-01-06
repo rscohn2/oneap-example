@@ -19,15 +19,16 @@ jobs:
       with:
         repository: spack/spack
         path: spack
+    - name: Style checks
+      run: |
+          # Run these quick before installing the compilers
+          SKIP=package-tests pre-commit run --all
     - name: Install compilers
       run: |
           source spack/share/spack/setup-env.sh
           spack install intel-oneapi-compilers
           spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
           spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
-    - name: Checks and tests
+    - name: Package tests
       run: |
-          source spack/share/spack/setup-env.sh
-          spack repo add ./repo
-          spack style
-          python test.py
+          pre-commit run --all

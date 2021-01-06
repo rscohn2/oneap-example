@@ -9,9 +9,6 @@ oneapi-spack-tests
 .. image:: https://github.com/rscohn2/oneapi-spack-tests/workflows/.github/workflows/ci.yml/badge.svg
    :target: https://github.com/rscohn2/oneapi-spack-tests/actions?query=workflow%3A.github%2Fworkflows%2Fci.yml
 
-.. image:: https://github.com/rscohn2/oneapi-spack-tests/workflows/.github/workflows/checks.yml/badge.svg
-   :target: https://github.com/rscohn2/oneapi-spack-tests/actions?query=workflow%3A.github%2Fworkflows%2Fchecks.yml
-
 .. image:: https://api.reuse.software/badge/github.com/rscohn2/oneapi-spack-tests
    :target: https://api.reuse.software/info/github.com/rscohn2/oneapi-spack-tests
    :alt: REUSE status

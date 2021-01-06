@@ -33,3 +33,17 @@ repos:
     rev: master
     hooks:
     -   id: reuse
+-   repo: local
+    hooks:
+    - id: spack-style
+      name: spack-style
+      entry: spack style
+      language: system
+      pass_filenames: false
+      always_run: true
+    - id: package-tests
+      name: package-tests
+      entry: python test.py
+      language: system
+      pass_filenames: false
+      always_run: true
