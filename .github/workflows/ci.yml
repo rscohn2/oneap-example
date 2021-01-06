@@ -22,4 +22,5 @@ jobs:
     - name: Style and package tests
       run: |
           source spack/share/spack/setup-env.sh
+          spack repo add ./repo
           pre-commit run --all
