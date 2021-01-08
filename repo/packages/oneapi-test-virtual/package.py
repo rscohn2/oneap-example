@@ -26,6 +26,7 @@ class OneapiTestVirtual(Package):
         sha256="0eaea9c9c33b5d69c1a12044481bd38cc35f967a533b26a0d8c21c4c4d17249b",
     )
 
+    depends_on("hdf5")
     depends_on("intel-oneapi-dal")
     depends_on("tbb")
     depends_on("mkl")
