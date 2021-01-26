@@ -15,7 +15,20 @@ oneapi-spack-tests
 
 The files here test oneapi support in spack. It installs compilers,
 and uses the icpx and gcc to build programs that use the oneapi
-libraries and SYCL.
+libraries and SYCL. It uses a sample package that contains programs
+that use oneAPI components.
+
+It tests the following:
+
+* intel-oneapi-* packages as dependencies
+* include directories are accessible
+* library directories are accessible
+* packages provide correct configuration when used as a virtual
+  provider
+* environment variables are set
+
+When appropriate, the tests are performed using both intel compilers
+and gcc.
 
 Setup spack::
 
@@ -26,10 +39,17 @@ Install prerequisites for testing::
 
   pip install -r requirements.txt
 
-Run tests::
+Run all tests::
 
   pre-commit run --all
 
-Rerun package tests::
+Only run package tests::
 
   pre-commit run --all package-tests
+
+The sample applications are in the samples_ directory. The spack
+package that downloads/builds/installs the sample applications is in
+the repo_ directory.
+
+.. _samples:: samples
+.. _repo:: repo
