@@ -51,5 +51,5 @@ The sample applications are in the samples_ directory. The spack
 package that downloads/builds/installs the sample applications is in
 the repo_ directory.
 
-.. _samples:: samples
-.. _repo:: repo
+.. _samples: samples
+.. _repo: repo
