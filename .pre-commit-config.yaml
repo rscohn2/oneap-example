@@ -21,6 +21,10 @@ repos:
     rev: master
     hooks:
     -   id: doc8
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: master
+    hooks:
+    -   id: flake8
 -   repo: https://github.com/pycqa/isort
     rev: develop
     hooks:
@@ -33,23 +37,3 @@ repos:
     rev: master
     hooks:
     -   id: reuse
--   repo: local
-    hooks:
-    - id: spack-style
-      name: spack-style
-      entry: spack style
-      language: system
-      pass_filenames: false
-      always_run: true
-    - id: install-compilers
-      name: install-compilers
-      entry: python install-compilers.py
-      language: system
-      pass_filenames: false
-      always_run: true
-    - id: package-tests
-      name: package-tests
-      entry: python package-tests.py
-      language: system
-      pass_filenames: false
-      always_run: true

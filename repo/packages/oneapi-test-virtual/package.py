@@ -3,6 +3,7 @@
 #
 # SPDX-License-Identifier: MIT
 
+# flake8: noqa
 
 from spack import *
 
@@ -16,17 +17,19 @@ class OneapiTestVirtual(Package):
     maintainers = ["rscohn2"]
 
     variant(
-        "sycl",
+        'sycl',
         default=True,
-        description="Include tests that depend on SYCL support in the compiler",
+        description='Include tests that depend '
+        'on SYCL support in the compiler',
     )
 
     version(
-        "0.1",
-        sha256="0eaea9c9c33b5d69c1a12044481bd38cc35f967a533b26a0d8c21c4c4d17249b",
+        '0.1',
+        sha256='0eaea9c9c33b5d69c1a12044481bd38'
+        'cc35f967a533b26a0d8c21c4c4d17249b',
     )
 
-    depends_on("hdf5")
+    # depends_on("hdf5")
     depends_on("intel-oneapi-dal")
     depends_on("tbb")
     depends_on("mkl")

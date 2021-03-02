@@ -5,4 +5,5 @@
 flake8
 mypy
 pre-commit
+pytest
 reuse

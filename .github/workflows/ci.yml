@@ -4,8 +4,25 @@
 
 on: [push, pull_request]
 
+env:
+  SPACK_REPO: rscohn2/spack
+  SPACK_BRANCH: dev/oneapi-standalones
+
 jobs:
-  ci:
+  checks:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Checks
+      run: |
+        pre-commit run --all
+
+  gcc:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -17,10 +34,161 @@ jobs:
     - name: Install spack
       uses: actions/checkout@v2
       with:
-        repository: spack/spack
+        repository: ${{ env.SPACK_REPO }}
         path: spack
-    - name: Style and package tests
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
       run: |
-          source spack/share/spack/setup-env.sh
-          spack repo add ./repo
-          pre-commit run --all
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        pytest -s tests/test_packages.py::test_gcc
+        pytest -s tests/test_packages.py::test_virtual
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: gcc-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh
+
+  icc1:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ env.SPACK_REPO }}
+        path: spack
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+        pytest -s tests/test_packages.py::test_icc1
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: icc1-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh
+
+  icc2:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ env.SPACK_REPO }}
+        path: spack
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+        pytest -s tests/test_packages.py::test_icc2
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: icc2-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh
+
+  icx1:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ env.SPACK_REPO }}
+        path: spack
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+        pytest -s tests/test_packages.py::test_icx1
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: icx1-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh
+
+  icx2:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ env.SPACK_REPO }}
+        path: spack
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+        pytest -s tests/test_packages.py::test_icx2
+    - name: Load test
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack load intel-oneapi-compilers
+        spack load intel-oneapi-mkl
+        spack load intel-oneapi-tbb
+        spack load intel-oneapi-mpi
+        spack load intel-oneapi-dal
+        make -C samples clean
+        CXX=icpx FC=ifx make -C samples
+        make -C samples clean
+        CXX=icpc FC=ifort make -C samples
+        
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: icx2-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh

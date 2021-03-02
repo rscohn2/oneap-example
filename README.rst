@@ -14,9 +14,9 @@ oneapi-spack-tests
    :alt: REUSE status
 
 The files here test oneapi support in spack. It installs compilers,
-and uses the icpx and gcc to build programs that use the oneapi
-libraries and SYCL. It uses a sample package that contains programs
-that use oneAPI components.
+and uses icpc/icpx/ifort/ifx/g++/gfortran to build programs that use
+the oneapi libraries and SYCL. It uses a sample package that contains
+programs that use oneAPI components.
 
 It tests the following:
 
@@ -27,29 +27,46 @@ It tests the following:
   provider
 * environment variables are set
 
-When appropriate, the tests are performed using both intel compilers
-and gcc.
-
-Setup spack::
-
-  git clone https://github.com/spack/spack.git
-  source spack/share/spack/setup-env.sh
-
 Install prerequisites for testing::
 
   pip install -r requirements.txt
 
+Setup tests::
+
+  # Install and activate spack
+  git clone https://github.com/spack/spack.git
+  source spack/share/spack/setup-env.sh
+  # Add the test packages
+  spack repo add ./repo
+  # Install and activate compilers
+  spack install intel-oneapi-compilers
+  spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+  spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+
 Run all tests::
 
+  pytest -s tests
+
+Run pre-commit checks::
+
   pre-commit run --all
-
-Only run package tests::
-
-  pre-commit run --all package-tests
 
 The sample applications are in the samples_ directory. The spack
 package that downloads/builds/installs the sample applications is in
 the repo_ directory.
 
+Adding samples
+==============
+
+Add to samples_, `package.py`_, and `test_packages.py`_.
+
+Adding to CI
+============
+
+We divided the tests into groups because GitHub Actions runners do not
+have enough disk space to install all of oneAPI.
+
 .. _samples: samples
 .. _repo: repo
+.. _`package.py`: repo/packages/oneapi-test-basic/package.py
+.. _`test_packages.py`: tests/test_packages.py`
