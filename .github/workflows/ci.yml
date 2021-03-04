@@ -50,7 +50,7 @@ jobs:
         spack load intel-oneapi-mpi
         spack load intel-oneapi-mkl
         spack load intel-oneapi-dal
-        make -C samples cpp-sample.out fortran-sample.out sycl-sample.out mkl-sample.out mpi-sample.out tbb-sample.out dal-sample.out
+        make -C samples cpp-sample.out fortran-sample.out mkl-sample.out mpi-sample.out tbb-sample.out dal-sample.out
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
