@@ -69,4 +69,4 @@ have enough disk space to install all of oneAPI.
 .. _samples: samples
 .. _repo: repo
 .. _`package.py`: repo/packages/oneapi-test-basic/package.py
-.. _`test_packages.py`: tests/test_packages.py`
+.. _`test_packages.py`: tests/test_packages.py
