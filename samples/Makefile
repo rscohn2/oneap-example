@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 FORTRAN_SAMPLES = fortran-sample
-CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample
+CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample
 SYCL_SAMPLES = sycl-sample
 PREFIX = /dev/null
 
@@ -68,6 +68,12 @@ sycl-sample.out: sycl-sample
 	# ./$< > $@
 	echo sycl test
 	echo test > $@
+
+ipp-sample: ipp-sample.cpp
+	${CXX} ${CXXFLAGS}  $< -o $@ -lippcore
+
+ipp-sample.out: ipp-sample
+	./$< > $@
 
 test: ${SAMPLE_OUTS}
 
