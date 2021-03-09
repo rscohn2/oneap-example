@@ -95,9 +95,13 @@ def test_gcc(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic +{sample}')
 
 
-@pytest.mark.skip(reason='spack load does not work from python shell')
-def test_load(all_packages):
-    oneapi_packages = [f'{p}%gcc' for p in all_packages]
-    package_list = ' '.join(oneapi_packages)
-    shell(f'spack install {package_list}')
-    shell(f'spack load {package_list}')
+@pytest.mark.parametrize('component', ['tbb'])
+def test_load(component):
+    package = f'intel-oneapi-{component}'
+    out_file = f'{component}-sample.out'
+    shell(
+        '. spack/share/spack/setup-env.sh && '
+        f'spack install {package} && '
+        f'spack load {package} && '
+        f'make -C samples {out_file}'
+    )

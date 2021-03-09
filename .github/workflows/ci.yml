@@ -10,7 +10,6 @@ env:
 
 jobs:
   checks:
-    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -24,7 +23,10 @@ jobs:
         pre-commit run --all
 
   gcc:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -46,16 +48,11 @@ jobs:
         pytest -s tests/test_packages.py::test_virtual
     - name: Load test
       run: |
-        source spack/share/spack/setup-env.sh
-        spack load intel-oneapi-tbb
-        spack load intel-oneapi-mpi
-        spack load intel-oneapi-mkl
-        spack load intel-oneapi-dal
-        make -C samples cpp-sample.out fortran-sample.out mkl-sample.out mpi-sample.out tbb-sample.out dal-sample.out
+        pytest -s tests/test_packages.py::test_load
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
-        name: gcc-logs
+        name: gcc-${{ matrix.os }}
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
