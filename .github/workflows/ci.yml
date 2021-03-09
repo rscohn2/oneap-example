@@ -203,3 +203,71 @@ jobs:
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
           !/tmp/runner/**/*.sh
+
+  icc1-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ env.SPACK_REPO }}
+        path: spack
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+        pytest -s tests/test_packages.py::test_icc1
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: icc1-macos-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh
+
+  icc2-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+    - name: Install spack
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ env.SPACK_REPO }}
+        path: spack
+        ref: ${{ env.SPACK_BRANCH }}
+    - name: Package tests
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack repo add ./repo
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+        pytest -s tests/test_packages.py::test_icc2
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: icc2-macos-logs
+        path: |
+          /tmp/runner/spack-stage/
+          /tmp/runner/intel-oneapi-installer/
+          !/tmp/runner/**/*.sh
