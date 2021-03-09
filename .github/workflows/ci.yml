@@ -85,9 +85,9 @@ jobs:
       run: |
         source spack/share/spack/setup-env.sh
         spack repo add ./repo
-        # spack install intel-oneapi-compilers
-        # spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
-        # spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+        spack install intel-oneapi-compilers
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
+        spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
         pytest -s tests/test_packages.py::test_${{ matrix.compiler }}_${{ matrix.part }}
     - uses: actions/upload-artifact@v2
       if: failure()
