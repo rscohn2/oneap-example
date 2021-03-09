@@ -34,12 +34,12 @@ icx2_samples = [
 
 
 @pytest.mark.parametrize('sample', icx1_samples)
-def test_icx1(clean, sample):
+def test_icx_1(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
 
 
 @pytest.mark.parametrize('sample', icx2_samples)
-def test_icx2(clean, sample):
+def test_icx_2(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
 
 
@@ -57,12 +57,12 @@ icc2_samples = [
 
 
 @pytest.mark.parametrize('sample', icc1_samples)
-def test_icc1(clean, sample):
+def test_icc_1(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic%intel +{sample}')
 
 
 @pytest.mark.parametrize('sample', icc2_samples)
-def test_icc2(clean, sample):
+def test_icc_2(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic%intel +{sample}')
 
 
