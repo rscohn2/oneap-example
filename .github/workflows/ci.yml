@@ -25,6 +25,7 @@ jobs:
   gcc:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-20.04, macos-latest]
     steps:
@@ -64,6 +65,7 @@ jobs:
   intel-compiler:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         compiler: [icc, icx]
         part: [1, 2]
