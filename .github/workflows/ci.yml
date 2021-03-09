@@ -66,9 +66,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-latest]
-        part: [1, 2]
         compiler: [icc, icx]
+        part: [1, 2]
+        os: [ubuntu-20.04, macos-latest]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -94,7 +94,7 @@ jobs:
       if: failure()
       with:
         #name: ABC
-        #name: ${{ matrix.compiler }}-${{ matrix.os }}
+        #name: ${{ matrix.compiler }}-${{ matrix.part }}-${{ matrix.os }}
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
