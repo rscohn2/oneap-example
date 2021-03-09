@@ -62,9 +62,12 @@ jobs:
           /tmp/runner/intel-oneapi-installer/
           !/tmp/runner/**/*.sh
 
-  icc1:
-    if: false
-    runs-on: ubuntu-20.04
+  icc:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest]
+        part: [1, 2]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -84,11 +87,11 @@ jobs:
         spack repo add ./repo
         spack install intel-oneapi-compilers
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
-        pytest -s tests/test_packages.py::test_icc1
+        pytest -s tests/test_packages.py::icc-${{ matrix.part }}
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
-        name: icc1-logs
+        name: icc-${{matrix.part }}-${{ matrix.os }}
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
@@ -211,6 +214,7 @@ jobs:
           !/tmp/runner/**/*.sh
 
   icc1-macos:
+    if: false
     runs-on: macos-latest
     defaults:
       run:
@@ -245,6 +249,7 @@ jobs:
           !/tmp/runner/**/*.sh
 
   icc2-macos:
+    if: false
     runs-on: macos-latest
     defaults:
       run:
