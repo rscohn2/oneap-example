@@ -10,6 +10,7 @@ env:
 
 jobs:
   checks:
+    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -23,6 +24,7 @@ jobs:
         pre-commit run --all
 
   gcc:
+    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -61,6 +63,7 @@ jobs:
           !/tmp/runner/**/*.sh
 
   icc1:
+    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -92,6 +95,7 @@ jobs:
           !/tmp/runner/**/*.sh
 
   icc2:
+    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -123,6 +127,7 @@ jobs:
           !/tmp/runner/**/*.sh
 
   icx1:
+    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -164,6 +169,7 @@ jobs:
           !/tmp/runner/**/*.sh
 
   icx2:
+    if: false
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
