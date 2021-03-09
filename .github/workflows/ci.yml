@@ -94,7 +94,7 @@ jobs:
       if: failure()
       with:
         #name: ABC
-        #name: ${{ matrix.part }}-${{ matrix.os }}
+        #name: ${{ matrix.compiler }}-${{ matrix.os }}
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
