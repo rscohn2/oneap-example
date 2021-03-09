@@ -93,8 +93,8 @@ jobs:
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
-        name: ABC
-        #name: ${{ matrix.compiler }-${{ matrix.part }}-${{ matrix.os }}
+        #name: ABC
+        #name: ${{ matrix.part }}-${{ matrix.os }}
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
