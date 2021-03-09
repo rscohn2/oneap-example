@@ -57,6 +57,9 @@ jobs:
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
           !/tmp/runner/**/*.sh
+          bootstrapper*
+          installer*
+        retention-days: 7
 
   intel-compiler:
     runs-on: ${{ matrix.os }}
@@ -94,3 +97,6 @@ jobs:
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
           !/tmp/runner/**/*.sh
+          bootstrapper*
+          installer*
+        retention-days: 7
