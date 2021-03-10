@@ -7,11 +7,11 @@
 #include "ippcore.h"
 
 int main() {
-    const IppLibraryVersion *lib;
-    
-    /* Get IPP library version info */
-    lib = ippGetLibVersion();
-    std::cout << lib->Name << " " << lib->Version << std::endl;
-    
-    return 0;
+  const IppLibraryVersion *lib;
+
+  /* Get IPP library version info */
+  lib = ippGetLibVersion();
+  std::cout << lib->Name << " " << lib->Version << std::endl;
+
+  return 0;
 }

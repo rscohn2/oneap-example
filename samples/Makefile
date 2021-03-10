@@ -71,6 +71,7 @@ sycl-sample.out: sycl-sample
 
 ipp-sample: ipp-sample.cpp
 	${CXX} ${CXXFLAGS}  $< -o $@ -lippcore
+	cp $@ ${PREFIX}
 
 ipp-sample.out: ipp-sample
 	./$< > $@
