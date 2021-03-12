@@ -6,13 +6,12 @@
 
 #include "ippcp.h"
 
-int main()
-{
-    const IppLibraryVersion *lib;
-    
-    /* Get IPP Cryptography library version info */
-    lib = ippcpGetLibVersion();
-    std::cout << lib->Name << " " << lib->Version << std::endl;
-    
-    return 0;
+int main() {
+  const IppLibraryVersion *lib;
+
+  /* Get IPP Cryptography library version info */
+  lib = ippcpGetLibVersion();
+  std::cout << lib->Name << " " << lib->Version << std::endl;
+
+  return 0;
 }

@@ -18,8 +18,19 @@ class OneapiTestBasic(Package):
 
     variant('virtual', default=False, description='Use virtual dependences')
     variant('all', default=False, description='Use all samples')
-    samples = ['cpp', 'fortran', 'sycl', 'mkl', 'tbb', 'dal', 'mpi', 'ipp']
-    components = ['tbb', 'dal', 'mkl', 'mpi', 'ipp']
+    samples = [
+        'cpp',
+        'fortran',
+        'sycl',
+        'mkl',
+        'tbb',
+        'dal',
+        'mpi',
+        'ipp',
+        'ippcp',
+        'vpl',
+    ]
+    components = ['tbb', 'dal', 'mkl', 'mpi', 'ipp', 'ippcp', 'vpl']
     for c in samples:
         variant(c, default=False, description=f'Test {c}')
         if c in components:

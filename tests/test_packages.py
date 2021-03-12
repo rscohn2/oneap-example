@@ -31,6 +31,8 @@ icx1_samples = [
 icx2_samples = [
     'dal',
     'ipp',
+    'ippcp',
+    'vpl',
 ]
 
 
@@ -55,6 +57,8 @@ icc1_samples = [
 icc2_samples = [
     'dal',
     'ipp',
+    'ippcp',
+    'vpl',
 ]
 
 
@@ -82,7 +86,17 @@ def test_virtual(clean, component):
 
 
 # build with gcc
-gcc_samples = ['cpp', 'fortran', 'dal', 'mkl', 'mpi', 'tbb', 'ipp']
+gcc_samples = [
+    'cpp',
+    'fortran',
+    'dal',
+    'mkl',
+    'mpi',
+    'tbb',
+    'ipp',
+    'ippcp',
+    'vpl',
+]
 
 
 @pytest.mark.parametrize('sample', gcc_samples)

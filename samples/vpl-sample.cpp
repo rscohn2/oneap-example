@@ -7,18 +7,17 @@
 #include "vpl/mfxdispatcher.h"
 #include "vpl/mfxvideo.h"
 
-int main()
-{
+int main() {
 
-    mfxLoader loader = NULL;
-    mfxU32 framenum = 0;
+  mfxLoader loader = NULL;
+  mfxU32 framenum = 0;
 
-    // Initialize VPL session for video processing
-    loader = MFXLoad();
+  // Initialize VPL session for video processing
+  loader = MFXLoad();
 
-    printf("%s\n", "MFXLoad failed"); 
-    MFXUnload(loader);
-    printf("Number of frames = %d\n", framenum);
+  printf("%s\n", "MFXLoad failed");
+  MFXUnload(loader);
+  printf("Number of frames = %d\n", framenum);
 
-    return 0;
+  return 0;
 }
