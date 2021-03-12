@@ -106,12 +106,12 @@ gcc2_samples = [
 
 
 @pytest.mark.parametrize('sample', gcc1_samples)
-def test_gcc1(clean, sample):
+def test_gcc_1(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic +{sample}')
 
 
 @pytest.mark.parametrize('sample', gcc2_samples)
-def test_gcc2(clean, sample):
+def test_gcc_2(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic +{sample}')
 
 

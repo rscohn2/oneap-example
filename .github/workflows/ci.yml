@@ -28,6 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04]
+        part: [1, 2]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -45,7 +46,7 @@ jobs:
       run: |
         source spack/share/spack/setup-env.sh
         spack repo add ./repo
-        pytest -s tests/test_packages.py::test_gcc
+        pytest -s tests/test_packages.py::test_gcc_${{ matrix.part }}
         pytest -s tests/test_packages.py::test_virtual
     - name: Load test
       run: |
@@ -53,7 +54,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
-        name: gcc-${{ matrix.os }}
+        name: gcc-${{ matrix.part }}-${{ matrix.os }}-logs
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
