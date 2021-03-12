@@ -33,9 +33,9 @@ icx1_samples = [
 
 icx2_samples = [
     'dal',
+    'vpl',
     'ipp',
     'ippcp',
-    'vpl',
 ]
 
 
@@ -89,21 +89,29 @@ def test_virtual(clean, component):
 
 
 # build with gcc
-gcc_samples = [
+gcc1_samples = [
     'cpp',
     'fortran',
     'dal',
     'mkl',
     'mpi',
     'tbb',
+]
+
+gcc2_samples = [
     'ipp',
     'ippcp',
     'vpl',
 ]
 
 
-@pytest.mark.parametrize('sample', gcc_samples)
-def test_gcc(clean, sample):
+@pytest.mark.parametrize('sample', gcc1_samples)
+def test_gcc1(clean, sample):
+    shell(f'{install_cmd} oneapi-test-basic +{sample}')
+
+
+@pytest.mark.parametrize('sample', gcc2_samples)
+def test_gcc2(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic +{sample}')
 
 
