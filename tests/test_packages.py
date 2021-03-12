@@ -14,7 +14,10 @@ def shell(cmd, check=True, capture_output=False, modify=False):
     )
 
 
-install_cmd = 'spack install --no-checksum'
+# checksums are not right because source is in this repo fail-fast is
+# needed to make spack return a non zero error code when a dependency
+# fails
+install_cmd = 'spack install --no-checksum --fail-fast'
 
 
 # Split into seperate lists because github actions runners have
