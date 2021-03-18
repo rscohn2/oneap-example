@@ -34,12 +34,12 @@ class OneapiTestBasic(Package):
     for c in samples:
         variant(c, default=False, description=f'Test {c}')
         if c in components:
-            depends_on(f'intel-oneapi-{c}', when=f'+{c}')
-            depends_on(f'intel-oneapi-{c}', when='+all')
+            depends_on(f'intel-oneapi-{c}', when=f'+{c} -virtual')
+            depends_on(f'intel-oneapi-{c}', when='+all -virtual')
 
-    depends_on('tbb', when='+tbb +virtual')
-    depends_on('mkl', when='+mkl +virtual')
-    depends_on('mpi', when='+mpi +virtual')
+    depends_on('tbb ^intel-oneapi-tbb', when='+tbb +virtual')
+    depends_on('mkl ^intel-oneapi-mkl', when='+mkl +virtual')
+    depends_on('mpi ^intel-oneapi-mpi', when='+mpi +virtual')
 
     version(
         '0.1',

@@ -108,11 +108,15 @@ gcc2_samples = [
 @pytest.mark.parametrize('sample', gcc1_samples)
 def test_gcc_1(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic +{sample}')
+    if sample in virtual_components:
+        shell(f'{install_cmd} oneapi-test-basic +virtual +{sample}')
 
 
 @pytest.mark.parametrize('sample', gcc2_samples)
 def test_gcc_2(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic +{sample}')
+    if sample in virtual_components:
+        shell(f'{install_cmd} oneapi-test-basic +virtual +{sample}')
 
 
 @pytest.mark.parametrize('component', ['tbb'])
