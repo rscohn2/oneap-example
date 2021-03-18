@@ -34,6 +34,9 @@ icx1_samples = [
 icx2_samples = [
     'dal',
     'vpl',
+]
+
+icx3_samples = [
     'ipp',
     'ippcp',
 ]
@@ -49,6 +52,11 @@ def test_icx_2(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
 
 
+@pytest.mark.parametrize('sample', icx3_samples)
+def test_icx_3(clean, sample):
+    shell(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
+
+
 icc1_samples = [
     'cpp',
     'fortran',
@@ -59,9 +67,12 @@ icc1_samples = [
 
 icc2_samples = [
     'dal',
+    'vpl',
+]
+
+icc3_samples = [
     'ipp',
     'ippcp',
-    'vpl',
 ]
 
 
@@ -72,6 +83,11 @@ def test_icc_1(clean, sample):
 
 @pytest.mark.parametrize('sample', icc2_samples)
 def test_icc_2(clean, sample):
+    shell(f'{install_cmd} oneapi-test-basic%intel +{sample}')
+
+
+@pytest.mark.parametrize('sample', icc3_samples)
+def test_icc_3(clean, sample):
     shell(f'{install_cmd} oneapi-test-basic%intel +{sample}')
 
 
