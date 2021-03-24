@@ -27,8 +27,6 @@ icx1_samples = [
     'fortran',
     'sycl',
     'mkl',
-    'mpi',
-    'tbb',
 ]
 
 icx2_samples = [
@@ -39,6 +37,8 @@ icx2_samples = [
 icx3_samples = [
     'ipp',
     'ippcp',
+    'mpi',
+    'tbb',
 ]
 
 
@@ -61,8 +61,6 @@ icc1_samples = [
     'cpp',
     'fortran',
     'mkl',
-    'mpi',
-    'tbb',
 ]
 
 icc2_samples = [
@@ -73,6 +71,8 @@ icc2_samples = [
 icc3_samples = [
     'ipp',
     'ippcp',
+    'mpi',
+    'tbb',
 ]
 
 
