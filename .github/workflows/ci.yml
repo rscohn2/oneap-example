@@ -45,6 +45,7 @@ jobs:
     - name: Package tests
       run: |
         source spack/share/spack/setup-env.sh
+        spack config add "config:source_cache:/dev/null"
         spack repo add ./repo
         pytest -s tests/test_packages.py::test_gcc_${{ matrix.part }}
         pytest -s tests/test_packages.py::test_virtual
@@ -87,6 +88,7 @@ jobs:
     - name: Package tests
       run: |
         source spack/share/spack/setup-env.sh
+        spack config add "config:source_cache:/dev/null"
         spack repo add ./repo
         spack install intel-oneapi-compilers
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
