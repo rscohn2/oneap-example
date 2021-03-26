@@ -29,7 +29,7 @@ cpp-sample.out: cpp-sample
 	./$< > $@
 
 mkl-sample: mkl-sample.cpp
-	${CXX} ${CXXFLAGS} -DMKL_ILP64 $< -o $@ -lmkl_intel_ilp64 -lmkl_sequential -lmkl_core
+	${CXX} ${CXXFLAGS} -DMKL_ILP64 $< -o $@ ${MKL_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 mkl-sample.out: mkl-sample

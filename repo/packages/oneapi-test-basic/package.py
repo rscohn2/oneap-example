@@ -38,18 +38,20 @@ class OneapiTestBasic(Package):
             depends_on(f'intel-oneapi-{c}', when='+all -virtual')
 
     depends_on('tbb ^intel-oneapi-tbb', when='+tbb +virtual')
-    depends_on('mkl ^intel-oneapi-mkl', when='+mkl +virtual')
+    depends_on('mkl ^intel-mkl', when='+mkl +virtual')
     depends_on('mpi ^intel-oneapi-mpi', when='+mpi +virtual')
 
-    version(
-        '0.1',
-        sha256='1a3294b10711cb84da1dca07c0f176b'
-        '0b1c01273fde2f5cc836cd8f60c4d3a3c',
-    )
+    version('main')
 
     def install(self, spec, prefix):
         targets = []
         for c in OneapiTestBasic.samples:
             if '+all' in self.spec or f'+{c}' in self.spec:
                 targets.append(f'{c}-sample.out')
-        make('-C', 'samples', "PREFIX={0}".format(prefix), *targets)
+        make(
+            '-C',
+            'samples',
+            f'PREFIX={prefix}',
+            f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}',
+            *targets,
+        )
