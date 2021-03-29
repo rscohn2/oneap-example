@@ -47,11 +47,14 @@ class OneapiTestBasic(Package):
         targets = []
         for c in OneapiTestBasic.samples:
             if '+all' in self.spec or f'+{c}' in self.spec:
+                if c == 'mkl':
+                    targets.append(
+                        f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}'
+                    )
                 targets.append(f'{c}-sample.out')
         make(
             '-C',
             'samples',
             f'PREFIX={prefix}',
-            f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}',
             *targets,
         )

@@ -5,8 +5,8 @@
 on: [push, pull_request]
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: rscohn2/spack
+  SPACK_BRANCH: dev/mkl-deps
 
 jobs:
   checks:
@@ -50,6 +50,7 @@ jobs:
         pytest -s tests/test_packages.py::test_virtual
     - name: Load test
       run: |
+        source spack/share/spack/setup-env.sh
         pytest -s tests/test_packages.py::test_load
     - uses: actions/upload-artifact@v2
       if: failure()
@@ -89,6 +90,7 @@ jobs:
         source spack/share/spack/setup-env.sh
         spack repo add ./repo
         spack install intel-oneapi-compilers
+        spack clean --downloads
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
         pytest -s tests/test_packages.py::test_${{ matrix.compiler }}_${{ matrix.part }}
