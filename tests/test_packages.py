@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
+import os
 import subprocess
 
 import pytest
@@ -14,15 +15,15 @@ def shell(cmd, check=True, capture_output=False, modify=False):
     )
 
 
-def spack_postfix(cmd):
-    shell(cmd)
-    shell('spack clean --downloads')
-
-
-# checksums are not right because source is in this repo fail-fast is
-# needed to make spack return a non zero error code when a dependency
-# fails
-install_cmd = 'spack install --no-checksum --fail-fast'
+def spack_install(options):
+    # checksums are not right because source is in this
+    # repo. fail-fast is needed to make spack return a non zero error
+    # code when a dependency fails
+    shell(f'spack install  --no-checksum --fail-fast {options}')
+    # github actions have limited space, so delete cached downloads
+    if 'GITHUB_WORKFLOW' in os.environ:
+        shell('spack clean --downloads')
+        shell('df -h .')
 
 
 # Split into seperate lists because github actions runners have
@@ -49,17 +50,17 @@ icx3_samples = [
 
 @pytest.mark.parametrize('sample', icx1_samples)
 def test_icx_1(clean, sample):
-    spack_postfix(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
+    spack_install(f'oneapi-test-basic%oneapi +{sample}')
 
 
 @pytest.mark.parametrize('sample', icx2_samples)
 def test_icx_2(clean, sample):
-    spack_postfix(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
+    spack_install(f'oneapi-test-basic%oneapi +{sample}')
 
 
 @pytest.mark.parametrize('sample', icx3_samples)
 def test_icx_3(clean, sample):
-    spack_postfix(f'{install_cmd} oneapi-test-basic%oneapi +{sample}')
+    spack_install(f'oneapi-test-basic%oneapi +{sample}')
 
 
 icc1_samples = [
@@ -83,17 +84,17 @@ icc3_samples = [
 
 @pytest.mark.parametrize('sample', icc1_samples)
 def test_icc_1(clean, sample):
-    spack_postfix(f'{install_cmd} oneapi-test-basic%intel +{sample}')
+    spack_install(f'oneapi-test-basic%intel +{sample}')
 
 
 @pytest.mark.parametrize('sample', icc2_samples)
 def test_icc_2(clean, sample):
-    spack_postfix(f'{install_cmd} oneapi-test-basic%intel +{sample}')
+    spack_install(f'oneapi-test-basic%intel +{sample}')
 
 
 @pytest.mark.parametrize('sample', icc3_samples)
 def test_icc_3(clean, sample):
-    spack_postfix(f'{install_cmd} oneapi-test-basic%intel +{sample}')
+    spack_install(f'oneapi-test-basic%intel +{sample}')
 
 
 # build with icx using virtual dependencies
@@ -106,7 +107,7 @@ virtual_components = [
 
 @pytest.mark.parametrize('component', virtual_components)
 def test_virtual(clean, component):
-    shell(f'{install_cmd} oneapi-test-basic +virtual +{component}')
+    spack_install(f'oneapi-test-basic +virtual +{component}')
 
 
 # build with gcc
@@ -128,25 +129,25 @@ gcc2_samples = [
 
 @pytest.mark.parametrize('sample', gcc1_samples)
 def test_gcc_1(clean, sample):
-    shell(f'{install_cmd} oneapi-test-basic +{sample}')
+    spack_install(f'oneapi-test-basic +{sample}')
     if sample in virtual_components:
-        spack_postfix(f'{install_cmd} oneapi-test-basic +virtual +{sample}')
+        spack_install(f'oneapi-test-basic +virtual +{sample}')
 
 
 @pytest.mark.parametrize('sample', gcc2_samples)
 def test_gcc_2(clean, sample):
-    shell(f'{install_cmd} oneapi-test-basic +{sample}')
+    spack_install(f'oneapi-test-basic +{sample}')
     if sample in virtual_components:
-        spack_postfix(f'{install_cmd} oneapi-test-basic +virtual +{sample}')
+        spack_install(f'oneapi-test-basic +virtual +{sample}')
 
 
 @pytest.mark.parametrize('component', ['tbb'])
 def test_load(component):
     package = f'intel-oneapi-{component}'
     out_file = f'{component}-sample.out'
+    spack_install(f'{package}')
     shell(
         '. spack/share/spack/setup-env.sh && '
-        f'spack install {package} && '
         f'spack load {package} && '
         f'make -C samples {out_file}'
     )
