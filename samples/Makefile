@@ -84,7 +84,7 @@ ippcp-sample.out: ippcp-sample
 	./$< > $@
 
 vpl-sample: vpl-sample.cpp
-	${CXX} ${CXXFLAGS}  $< -o $@ -lmfx
+	${CXX} ${CXXFLAGS}  $< -o $@ -lvpl
 	cp $@ ${PREFIX}
 
 vpl-sample.out: vpl-sample
