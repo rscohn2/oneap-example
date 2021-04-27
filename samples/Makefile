@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 FORTRAN_SAMPLES = fortran-sample
-CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample ippcp-sample vpl-sample
+CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample ippcp-sample vpl-sample dnn-sample
 SYCL_SAMPLES = sycl-sample
 PREFIX = /dev/null
 
@@ -88,6 +88,13 @@ vpl-sample: vpl-sample.cpp
 	cp $@ ${PREFIX}
 
 vpl-sample.out: vpl-sample
+	./$< > $@
+
+dnn-sample: dnn-sample.cpp
+	dpcpp ${CXXFLAGS} -std=c++11 $< -o $@ -ldnnl
+	cp $@ ${PREFIX}
+
+dnn-sample.out: dnn-sample
 	./$< > $@
 
 test: ${SAMPLE_OUTS}
