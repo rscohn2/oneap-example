@@ -68,7 +68,6 @@ icc1_samples = [
     'cpp',
     'fortran',
     'mkl',
-    'dnn',
 ]
 
 icc2_samples = [
@@ -126,7 +125,6 @@ gcc2_samples = [
     'ipp',
     'ippcp',
     'vpl',
-    'dnn',
 ]
 
 
