@@ -22,6 +22,7 @@ class OneapiTestBasic(Package):
         'cpp',
         'fortran',
         'sycl',
+        'dnn',
         'mkl',
         'tbb',
         'dal',
@@ -30,7 +31,7 @@ class OneapiTestBasic(Package):
         'ippcp',
         'vpl',
     ]
-    components = ['tbb', 'dal', 'mkl', 'mpi', 'ipp', 'ippcp', 'vpl']
+    components = ['dnn', 'tbb', 'dal', 'mkl', 'mpi', 'ipp', 'ippcp', 'vpl']
     for c in samples:
         variant(c, default=False, description=f'Test {c}')
         if c in components:
