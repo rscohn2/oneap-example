@@ -5,6 +5,7 @@
 FORTRAN_SAMPLES = fortran-sample
 CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample ippcp-sample vpl-sample dnn-sample
 SYCL_SAMPLES = sycl-sample
+SYCL_ARGS = -fsycl -fsycl-unnamed-lambda
 PREFIX = /dev/null
 SYCL_ARGS = -fsycl -fsycl-unnamed-lambda
 
@@ -92,7 +93,7 @@ vpl-sample.out: vpl-sample
 	./$< > $@
 
 dnn-sample: dnn-sample.cpp
-	${CXX} ${SYCL_ARGS} ${CXXFLAGS} -std=c++11 $< -o $@ -ldnnl
+	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@ -ldnnl
 	cp $@ ${PREFIX}
 
 dnn-sample.out: dnn-sample
