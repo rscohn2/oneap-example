@@ -33,6 +33,7 @@ icx1_samples = [
     'fortran',
     'sycl',
     'mkl',
+    'dnn',
 ]
 
 icx2_samples = [
