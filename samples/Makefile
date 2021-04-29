@@ -7,7 +7,6 @@ CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample 
 SYCL_SAMPLES = sycl-sample
 SYCL_ARGS = -fsycl -fsycl-unnamed-lambda
 PREFIX = /dev/null
-SYCL_ARGS = -fsycl -fsycl-unnamed-lambda
 
 SAMPLES = ${CPP_SAMPLES} ${SYCL_SAMPLES} ${FORTRAN_SAMPLES}
 SAMPLE_OUTS = $(foreach s,${SAMPLES},${s}.out)
