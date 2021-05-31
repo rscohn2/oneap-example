@@ -52,7 +52,8 @@ dal-sample.out: dal-sample
 
 mpi-sample: mpi-sample.cpp
 	${CXX} ${CXXFLAGS} $< -o $@ -lmpi
-	cp $@ ${PREFIX}
+	mpigcc $< -o $@.mpigcc
+	cp $@ $@.mpigcc ${PREFIX}
 
 mpi-sample.out: mpi-sample
 	# need to set up environment to run
