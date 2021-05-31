@@ -52,7 +52,7 @@ dal-sample.out: dal-sample
 
 mpi-sample: mpi-sample.cpp
 	${CXX} ${CXXFLAGS} $< -o $@ -lmpi
-	mpigcc $< -o $@.mpigcc
+	${MPI_PREFIX}/mpigcc $< -o $@.mpigcc
 	cp $@ $@.mpigcc ${PREFIX}
 
 mpi-sample.out: mpi-sample
