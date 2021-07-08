@@ -71,6 +71,16 @@ sycl-sample.out: sycl-sample
 	echo sycl test
 	echo test > $@
 
+dpl-sample: dpl-sample.cpp
+	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@
+	cp $@ ${PREFIX}
+
+dpl-sample.out: dpl-sample
+	# need to set up environment to run
+	# ./$< > $@
+	echo sycl test
+	echo test > $@
+
 ipp-sample: ipp-sample.cpp
 	${CXX} ${CXXFLAGS}  $< -o $@ -lippcore
 	cp $@ ${PREFIX}
