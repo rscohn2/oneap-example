@@ -23,11 +23,11 @@
 std::uint32_t seed = 777;
 
 template <typename RealType>
-void scalar_example(sycl::queue& queue, std::vector<RealType>& x) {
+void scalar_example(sycl::queue &queue, std::vector<RealType> &x) {
   {
     sycl::buffer<RealType, 1> x_buffer(x.data(), sycl::range<1>(x.size()));
 
-    queue.submit([&](sycl::handler& cgh) {
+    queue.submit([&](sycl::handler &cgh) {
       auto x_acc = x_buffer.template get_access<sycl::access::mode::write>(cgh);
 
       cgh.parallel_for(sycl::range<1>(x.size()), [=](sycl::item<1> idx) {
@@ -63,11 +63,11 @@ void scalar_example(sycl::queue& queue, std::vector<RealType>& x) {
 }
 
 template <int VecSize, typename RealType>
-void vector_example(sycl::queue& queue, std::vector<RealType>& x) {
+void vector_example(sycl::queue &queue, std::vector<RealType> &x) {
   {
     sycl::buffer<RealType, 1> x_buffer(x.data(), sycl::range<1>(x.size()));
 
-    queue.submit([&](sycl::handler& cgh) {
+    queue.submit([&](sycl::handler &cgh) {
       auto x_acc = x_buffer.template get_access<sycl::access::mode::write>(cgh);
 
       cgh.parallel_for<class generate_kernel>(
@@ -107,10 +107,10 @@ void vector_example(sycl::queue& queue, std::vector<RealType>& x) {
 
 int main() {
   auto async_handler = [](sycl::exception_list ex_list) {
-    for (auto& ex : ex_list) {
+    for (auto &ex : ex_list) {
       try {
         std::rethrow_exception(ex);
-      } catch (sycl::exception& ex) {
+      } catch (sycl::exception &ex) {
         std::cerr << ex.what() << std::endl;
         std::exit(1);
       }
