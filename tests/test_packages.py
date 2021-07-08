@@ -26,7 +26,7 @@ def spack_install(options):
         shell('df -h .')
 
 
-# Split into seperate lists because github actions runners have
+# Split into separate lists because github actions runners have
 # limited disk space
 icx1_samples = [
     'cpp',
@@ -34,6 +34,7 @@ icx1_samples = [
     'sycl',
     'mkl',
     'dnn',
+    'dpl',
 ]
 
 icx2_samples = [
