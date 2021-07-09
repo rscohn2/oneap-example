@@ -20,18 +20,29 @@ class OneapiTestBasic(Package):
     variant('all', default=False, description='Use all samples')
     samples = [
         'cpp',
-        'fortran',
-        'sycl',
-        'dnn',
-        'mkl',
-        'tbb',
         'dal',
-        'mpi',
+        'dnn',
+        'dpl',
+        'fortran',
         'ipp',
         'ippcp',
+        'mkl',
+        'mpi',
+        'sycl',
+        'tbb',
         'vpl',
     ]
-    components = ['dnn', 'tbb', 'dal', 'mkl', 'mpi', 'ipp', 'ippcp', 'vpl']
+    components = [
+        'dal',
+        'dnn',
+        'dpl',
+        'ipp',
+        'ippcp',
+        'mkl',
+        'mpi',
+        'tbb',
+        'vpl',
+    ]
     for c in samples:
         variant(c, default=False, description=f'Test {c}')
         if c in components:
