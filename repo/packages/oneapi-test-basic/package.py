@@ -16,6 +16,7 @@ class OneapiTestBasic(Package):
 
     maintainers = ["rscohn2"]
 
+    variant('ilp64', default=False, description='Use ilp64')
     variant('virtual', default=False, description='Use virtual dependences')
     variant('all', default=False, description='Use all samples')
     samples = [
@@ -48,6 +49,8 @@ class OneapiTestBasic(Package):
         if c in components:
             depends_on(f'intel-oneapi-{c}', when=f'+{c} -virtual')
             depends_on(f'intel-oneapi-{c}', when='+all -virtual')
+    depends_on(f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64')
+    depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64')
 
     depends_on('tbb ^intel-oneapi-tbb', when='+tbb +virtual')
     depends_on('mkl ^intel-mkl', when='+mkl +virtual')
@@ -62,6 +65,9 @@ class OneapiTestBasic(Package):
                 if c == 'mpi':
                     targets.append(
                         f'MPI_PREFIX={self.spec["mpi"].prefix}/mpi/latest'
+                    )
+                    targets.append(
+                        f'MPI_LD_FLAGS={self.spec["mpi"].libs.ld_flags}'
                     )
                 if c == 'mkl':
                     targets.append(

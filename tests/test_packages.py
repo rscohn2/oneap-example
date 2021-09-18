@@ -99,6 +99,18 @@ def test_icc_3(clean, sample):
     spack_install(f'oneapi-test-basic%intel +{sample}')
 
 
+# ilp64 variants
+ilp64_components = [
+    'mkl',
+    'mpi',
+]
+
+
+@pytest.mark.parametrize('component', ilp64_components)
+def test_ilp64(clean, component):
+    spack_install(f'oneapi-test-basic +ilp64 +{component}')
+
+
 # build with icx using virtual dependencies
 virtual_components = [
     'tbb',
