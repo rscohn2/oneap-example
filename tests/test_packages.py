@@ -121,7 +121,7 @@ virtual_components = [
 
 @pytest.mark.parametrize('component', virtual_components)
 def test_virtual(clean, component):
-    spack_install(f'oneapi-test-basic +virtual +{component}')
+    spack_install(f'oneapi-test-basic +virtual +{component} ^intel-oneapi-{component}')
 
 
 # build with gcc
