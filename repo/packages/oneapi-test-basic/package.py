@@ -53,7 +53,7 @@ class OneapiTestBasic(Package):
     depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64')
 
     depends_on('tbb ^intel-oneapi-tbb', when='+tbb +virtual')
-    depends_on('mkl ^intel-mkl', when='+mkl +virtual')
+    depends_on('mkl ^intel-oneapi-mkl', when='+mkl +virtual')
     depends_on('mpi ^intel-oneapi-mpi', when='+mpi +virtual')
 
     version('main')
