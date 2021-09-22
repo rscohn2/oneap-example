@@ -2,6 +2,13 @@
 #
 # SPDX-License-Identifier: MIT
 
+VPL_LD_FLAGS ?= -lvpl
+IPPCP_LD_FLAGS ?= -lippcp
+IPP_LD_FLAGS ?= -lippcore
+DAL_LD_FLAGS ?= -lonedal_core -lonedal_sequential
+TBB_LD_FLAGS ?= -ltbb
+DNN_LD_FLAGS ?= -ldnnl
+
 FORTRAN_SAMPLES = fortran-sample
 CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample ippcp-sample vpl-sample dnn-sample
 SYCL_SAMPLES = sycl-sample
@@ -37,14 +44,14 @@ mkl-sample.out: mkl-sample
 	./$< > $@
 
 tbb-sample: tbb-sample.cpp
-	${CXX} ${CXXFLAGS} $< -o $@ -ltbb
+	${CXX} ${CXXFLAGS} $< -o $@ ${TBB_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 tbb-sample.out: tbb-sample
 	./$< > $@
 
 dal-sample: dal-sample.cpp
-	${CXX} ${CXXFLAGS} -Wno-deprecated-copy -Wno-deprecated-declarations -Wno-unused-parameter $< -o $@ -lonedal_core -lonedal_sequential
+	${CXX} ${CXXFLAGS} -Wno-deprecated-copy -Wno-deprecated-declarations -Wno-unused-parameter $< -o $@ ${DAL_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 dal-sample.out: dal-sample
@@ -82,28 +89,28 @@ dpl-sample.out: dpl-sample
 	echo test > $@
 
 ipp-sample: ipp-sample.cpp
-	${CXX} ${CXXFLAGS}  $< -o $@ -lippcore
+	${CXX} ${CXXFLAGS}  $< -o $@ ${IPP_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 ipp-sample.out: ipp-sample
 	./$< > $@
 
 ippcp-sample: ippcp-sample.cpp
-	${CXX} ${CXXFLAGS}  $< -o $@ -lippcp
+	${CXX} ${CXXFLAGS}  $< -o $@ ${IPPCP_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 ippcp-sample.out: ippcp-sample
 	./$< > $@
 
 vpl-sample: vpl-sample.cpp
-	${CXX} ${CXXFLAGS}  $< -o $@ -lvpl
+	${CXX} ${CXXFLAGS}  $< -o $@ ${VPL_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 vpl-sample.out: vpl-sample
 	./$< > $@
 
 dnn-sample: dnn-sample.cpp
-	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@ -ldnnl
+	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@ ${DNN_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 dnn-sample.out: dnn-sample
