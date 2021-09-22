@@ -73,6 +73,15 @@ class OneapiTestBasic(Package):
                     targets.append(
                         f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}'
                     )
+                if c == 'tbb':
+                    targets.append(
+                        f'TBB_LD_FLAGS={self.spec["tbb"].libs.ld_flags}'
+                    )
+                if c in ['dal', 'dnn', 'ipp', 'ippcp', 'vpl']:
+                    package = f'intel-oneapi-{c}'
+                    targets.append(
+                        f'{c.upper()}_LD_FLAGS={self.spec[package].libs.ld_flags}'
+                    )
                 targets.append(f'{c}-sample.out')
         make(
             '-C',
