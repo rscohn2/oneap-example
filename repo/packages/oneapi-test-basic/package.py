@@ -49,8 +49,6 @@ class OneapiTestBasic(Package):
         if c in components:
             depends_on(f'intel-oneapi-{c}', when=f'+{c} -virtual')
             depends_on(f'intel-oneapi-{c}', when='+all -virtual')
-    depends_on(f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64')
-    depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64')
 
     depends_on('tbb ^intel-oneapi-tbb', when='+tbb +virtual')
     depends_on('mkl ^intel-mkl', when='+mkl +virtual')
