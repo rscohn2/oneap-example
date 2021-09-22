@@ -89,7 +89,7 @@ ipp-sample.out: ipp-sample
 	./$< > $@
 
 ippcp-sample: ippcp-sample.cpp
-	${CXX} ${CXXFLAGS}  $< -o $@ -lippcp
+	${CXX} ${CXXFLAGS}  $< -o $@ ${IPPCP_LD_FLAGS}
 	cp $@ ${PREFIX}
 
 ippcp-sample.out: ippcp-sample

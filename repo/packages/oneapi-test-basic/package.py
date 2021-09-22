@@ -73,6 +73,10 @@ class OneapiTestBasic(Package):
                     targets.append(
                         f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}'
                     )
+                if c == 'ippcp':
+                    targets.append(
+                        f'IPPCP_LD_FLAGS={self.spec["intel-oneapi-ippcp"].libs.ld_flags}'
+                    )
                 targets.append(f'{c}-sample.out')
         make(
             '-C',
