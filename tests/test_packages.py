@@ -121,7 +121,9 @@ virtual_components = [
 
 @pytest.mark.parametrize('component', virtual_components)
 def test_virtual(clean, component):
-    spack_install(f'oneapi-test-basic +virtual +{component}')
+    spack_install(
+        f'oneapi-test-basic +virtual +{component} ^intel-oneapi-{component}'
+    )
 
 
 # build with gcc
@@ -144,15 +146,11 @@ gcc2_samples = [
 @pytest.mark.parametrize('sample', gcc1_samples)
 def test_gcc_1(clean, sample):
     spack_install(f'oneapi-test-basic +{sample}')
-    if sample in virtual_components:
-        spack_install(f'oneapi-test-basic +virtual +{sample}')
 
 
 @pytest.mark.parametrize('sample', gcc2_samples)
 def test_gcc_2(clean, sample):
     spack_install(f'oneapi-test-basic +{sample}')
-    if sample in virtual_components:
-        spack_install(f'oneapi-test-basic +virtual +{sample}')
 
 
 @pytest.mark.parametrize('component', ['tbb'])

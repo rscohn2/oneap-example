@@ -5,8 +5,8 @@
 on: [push, pull_request]
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: rscohn2/spack
+  SPACK_BRANCH: dev/impi
 
 jobs:
   checks:
@@ -28,7 +28,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04]
-        part: [1, 2]
+        part: [gcc_1, gcc_2, virtual, ilp64]
+    name: ${{ matrix.part }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -46,8 +47,7 @@ jobs:
       run: |
         source spack/share/spack/setup-env.sh
         spack repo add ./repo
-        pytest -s tests/test_packages.py::test_gcc_${{ matrix.part }}
-        pytest -s tests/test_packages.py::test_virtual
+        pytest -s tests/test_packages.py::test_${{ matrix.part }}
     - name: Load test
       run: |
         source spack/share/spack/setup-env.sh
@@ -72,6 +72,7 @@ jobs:
         compiler: [icc, icx]
         part: [1, 2, 3]
         os: [ubuntu-20.04]
+    name: ${{ matrix.compiler }}_${{ matrix.part }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
