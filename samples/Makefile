@@ -8,9 +8,10 @@ IPP_LD_FLAGS ?= -lippcore
 DAL_LD_FLAGS ?= -lonedal_core -lonedal_sequential
 TBB_LD_FLAGS ?= -ltbb
 DNN_LD_FLAGS ?= -ldnnl
+SCALAPACK_LD_FLAGS ?= -lmkl_scalapack_lp64 -lmkl_cdft_core -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64
 
 FORTRAN_SAMPLES = fortran-sample
-CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample ippcp-sample vpl-sample dnn-sample
+CPP_SAMPLES = cpp-sample mkl-sample tbb-sample dal-sample mpi-sample ipp-sample ippcp-sample vpl-sample dnn-sample scalapack-sample
 SYCL_SAMPLES = sycl-sample
 SYCL_ARGS = -fsycl -fsycl-unnamed-lambda
 PREFIX = /dev/null
@@ -42,6 +43,14 @@ mkl-sample: mkl-sample.cpp
 
 mkl-sample.out: mkl-sample
 	./$< > $@
+
+scalapack-sample: scalapack-sample.cpp
+	${CXX} ${CXXFLAGS} $< -o $@ ${SCALAPACK_LD_FLAGS} -lmpi
+	cp $@ ${PREFIX}
+
+scalapack-sample.out: scalapack-sample
+	# need to set up environment to run
+	echo mpirun ./$< > $@
 
 tbb-sample: tbb-sample.cpp
 	${CXX} ${CXXFLAGS} $< -o $@ ${TBB_LD_FLAGS}
