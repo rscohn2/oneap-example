@@ -35,6 +35,7 @@ class OneapiTestBasic(Package):
         'ippcp',
         'mkl',
         'mpi',
+        'scalapack',
         'sycl',
         'tbb',
         'vpl',
@@ -77,12 +78,9 @@ class OneapiTestBasic(Package):
                     targets.append(
                         f'MPI_PREFIX={self.spec["mpi"].prefix}/mpi/latest'
                     )
+                if c in ['scalapack', 'mkl', 'mpi']:
                     targets.append(
-                        f'MPI_LD_FLAGS={self.spec["mpi"].libs.ld_flags}'
-                    )
-                if c == 'mkl':
-                    targets.append(
-                        f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}'
+                        f'{c.upper()}_LD_FLAGS={self.spec[c].libs.ld_flags}'
                     )
                 targets.append(f'{c}-sample.out')
         make(
