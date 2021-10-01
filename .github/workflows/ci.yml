@@ -5,8 +5,8 @@
 on: [push, pull_request]
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: amasalsk/spack
+  SPACK_BRANCH: intel-oneapi-2021.4-release
 
 jobs:
   checks:
