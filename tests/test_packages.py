@@ -124,7 +124,7 @@ def test_virtual(clean, package):
         spack_install(
             (
                 'oneapi-test-basic +virtual +scalapack'
-                ' ^intel-oneapi-mkl +cluster ^intel-oneapi-mpi'
+                ' ^intel-oneapi-mkl +cluster ^intel-oneapi-mpi +static'
             )
         )
     else:
