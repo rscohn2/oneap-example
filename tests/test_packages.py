@@ -99,6 +99,10 @@ def test_icc_3(clean, sample):
     spack_install(f'oneapi-test-basic%intel +{sample}')
 
 
+def test_external_libfabric(clean):
+    spack_install('oneapi-test-basic +mpi +external-libfabric')
+
+
 # ilp64 variants
 ilp64_components = [
     'mkl',
