@@ -149,6 +149,8 @@ gcc2_samples = [
 
 @pytest.mark.parametrize('sample', gcc1_samples)
 def test_gcc_1(clean, sample):
+    if sample == 'mpi':
+        spack_install('oneapi-test-basic +mpi +external-libfabric')
     spack_install(f'oneapi-test-basic +{sample}')
 
 
