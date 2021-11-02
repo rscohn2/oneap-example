@@ -5,7 +5,7 @@
 on: [push, pull_request]
 
 env:
-  SPACK_REPO: stephenmsack/spack
+  SPACK_REPO: stephenmsachs/spack
   SPACK_BRANCH: dev-libfabric
 
 jobs:
