@@ -21,6 +21,7 @@ class OneapiTestBasic(Package):
         default=False,
         description='Use external libfabric with mpi',
     )
+    variant('scalapack', default=False, description=f'Test scalapack')
     variant('ilp64', default=False, description='Use ilp64')
     variant('virtual', default=False, description='Use virtual dependences')
     variant('all', default=False, description='Use all samples')
@@ -34,6 +35,7 @@ class OneapiTestBasic(Package):
         'ippcp',
         'mkl',
         'mpi',
+        'scalapack',
         'sycl',
         'tbb',
         'vpl',
@@ -64,6 +66,7 @@ class OneapiTestBasic(Package):
     depends_on('tbb', when='+tbb +virtual')
     depends_on('mkl', when='+mkl +virtual')
     depends_on('mpi', when='+mpi +virtual')
+    depends_on('scalapack', when='+scalapack +virtual')
 
     version('main')
 
@@ -75,12 +78,9 @@ class OneapiTestBasic(Package):
                     targets.append(
                         f'MPI_PREFIX={self.spec["mpi"].prefix}/mpi/latest'
                     )
+                if c in ['scalapack', 'mkl', 'mpi']:
                     targets.append(
-                        f'MPI_LD_FLAGS={self.spec["mpi"].libs.ld_flags}'
-                    )
-                if c == 'mkl':
-                    targets.append(
-                        f'MKL_LD_FLAGS={self.spec["blas"].libs.ld_flags}'
+                        f'{c.upper()}_LD_FLAGS={self.spec[c].libs.ld_flags}'
                     )
                 targets.append(f'{c}-sample.out')
         make(
