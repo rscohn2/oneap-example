@@ -78,7 +78,7 @@ mpi-sample.out: mpi-sample
 	echo test > $@
 
 sycl-sample: sycl-sample.cpp
-	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@
+	${CXX} ${CXXFLAGS} ${SYCL_ARGS} -v $< -o $@
 	cp $@ ${PREFIX}
 
 sycl-sample.out: sycl-sample

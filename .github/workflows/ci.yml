@@ -45,6 +45,9 @@ jobs:
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
         echo looking for sycl-post-link
         ls `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+        echo manual execute
+        spack install  --no-checksum --fail-fast oneapi-test-basic%oneapi +sycl
+        echo full execute
         pytest -s tests/test_packages.py::test_${{ matrix.compiler }}_${{ matrix.part }}
     - uses: actions/upload-artifact@v2
       if: failure()
