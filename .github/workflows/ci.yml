@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: evkarpovi/spack
+  SPACK_BRANCH: intel-oneapi-2022.1.1-release
 
 jobs:
   checks:
@@ -26,55 +26,14 @@ jobs:
       run: |
         pre-commit run --all
 
-  gcc:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-20.04]
-        part: [gcc_1, gcc_2, virtual, ilp64]
-    name: ${{ matrix.part }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - name: Install prerequisites
-      run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-    - name: Install spack
-      uses: actions/checkout@v2
-      with:
-        repository: ${{ env.SPACK_REPO }}
-        path: spack
-        ref: ${{ env.SPACK_BRANCH }}
-    - name: Package tests
-      run: |
-        source spack/share/spack/setup-env.sh
-        spack repo add ./repo
-        pytest -s tests/test_packages.py::test_${{ matrix.part }}
-    - name: Load test
-      run: |
-        source spack/share/spack/setup-env.sh
-        pytest -s tests/test_packages.py::test_load
-    - uses: actions/upload-artifact@v2
-      if: failure()
-      with:
-        name: gcc-${{ matrix.part }}-${{ matrix.os }}-logs
-        path: |
-          /tmp/runner/spack-stage/
-          /tmp/runner/intel-oneapi-installer/
-          !/tmp/runner/**/*.sh
-          bootstrapper*
-          installer*
-        retention-days: 7
 
   intel-compiler:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        compiler: [icc, icx]
-        part: [1, 2, 3]
+        compiler: [icx]
+        part: [1]
         os: [ubuntu-20.04]
     name: ${{ matrix.compiler }}_${{ matrix.part }}
     steps:
@@ -98,6 +57,8 @@ jobs:
         spack clean --downloads
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin/intel64
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
+        echo looking for sycl-post-link
+        ls `spack location -i intel-oneapi-compilers`/compiler/latest/linux/bin
         pytest -s tests/test_packages.py::test_${{ matrix.compiler }}_${{ matrix.part }}
     - uses: actions/upload-artifact@v2
       if: failure()
