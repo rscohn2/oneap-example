@@ -12,7 +12,7 @@ class OneapiTestBasic(Package):
     """Test oneapi package for spack."""
 
     homepage = "https://github.com/rscohn2/oneapi-spack-tests"
-    url = "https://github.com/rscohn2/oneapi-spack-tests/tarball/main"
+    url = "https://github.com/rscohn2/oneapi-spack-tests/tarball/dev/2022.1"
 
     maintainers = ["rscohn2"]
 
