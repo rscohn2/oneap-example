@@ -9,24 +9,10 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: evkarpovi/spack
+  SPACK_REPO: ekarpovi/spack
   SPACK_BRANCH: intel-oneapi-2022.1.1-release
 
 jobs:
-  checks:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - name: Install prerequisites
-      run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-    - name: Checks
-      run: |
-        pre-commit run --all
-
-
   intel-compiler:
     runs-on: ${{ matrix.os }}
     strategy:
