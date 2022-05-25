@@ -54,7 +54,8 @@ scalapack-sample.out: scalapack-sample
 
 tbb-sample: tbb-sample.cpp
 	echo checking compiler
-	${CXX} -v
+	touch x.cpp
+	${CXX} -v x.cpp
 	${CXX} ${CXXFLAGS} $< -o $@ ${TBB_LD_FLAGS}
 	cp $@ ${PREFIX}
 
@@ -72,7 +73,8 @@ mpi-sample: mpi-sample.cpp
 	# Check if environment is set up
 	ls ${I_MPI_ROOT}/lib/debug_mt
 	echo checking compiler
-	${CXX} -v
+	touch x.cpp
+	${CXX} -v x.cpp
 	${CXX} ${CXXFLAGS} $< -o $@ ${MPI_LD_FLAGS}
 	${MPI_PREFIX}/bin/mpigcc $< -o $@.mpigcc
 	cp $@ $@.mpigcc ${PREFIX}
@@ -95,7 +97,8 @@ sycl-sample.out: sycl-sample
 
 dpl-sample: dpl-sample.cpp
 	echo checking compiler
-	${CXX} -v
+	touch x.cpp
+	${CXX} -v x.cpp
 	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@
 	cp $@ ${PREFIX}
 
@@ -121,7 +124,8 @@ ippcp-sample.out: ippcp-sample
 
 vpl-sample: vpl-sample.cpp
 	echo checking compiler
-	${CXX} -v
+	touch x.cpp
+	${CXX} -v x.cpp
 	${CXX} ${CXXFLAGS}  $< -o $@ ${VPL_LD_FLAGS}
 	cp $@ ${PREFIX}
 
