@@ -53,6 +53,8 @@ scalapack-sample.out: scalapack-sample
 	echo mpirun ./$< > $@
 
 tbb-sample: tbb-sample.cpp
+	echo checking compiler
+	${CXX} -v
 	${CXX} ${CXXFLAGS} $< -o $@ ${TBB_LD_FLAGS}
 	cp $@ ${PREFIX}
 
@@ -92,6 +94,8 @@ sycl-sample.out: sycl-sample
 	echo test > $@
 
 dpl-sample: dpl-sample.cpp
+	echo checking compiler
+	${CXX} -v
 	${CXX} ${CXXFLAGS} ${SYCL_ARGS} $< -o $@
 	cp $@ ${PREFIX}
 
@@ -116,6 +120,8 @@ ippcp-sample.out: ippcp-sample
 	./$< > $@
 
 vpl-sample: vpl-sample.cpp
+	echo checking compiler
+	${CXX} -v
 	${CXX} ${CXXFLAGS}  $< -o $@ ${VPL_LD_FLAGS}
 	cp $@ ${PREFIX}
 
