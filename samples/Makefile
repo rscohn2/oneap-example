@@ -69,6 +69,8 @@ dal-sample.out: dal-sample
 mpi-sample: mpi-sample.cpp
 	# Check if environment is set up
 	ls ${I_MPI_ROOT}/lib/debug_mt
+	echo checking compiler
+	${CXX} -v
 	${CXX} ${CXXFLAGS} $< -o $@ ${MPI_LD_FLAGS}
 	${MPI_PREFIX}/bin/mpigcc $< -o $@.mpigcc
 	cp $@ $@.mpigcc ${PREFIX}
