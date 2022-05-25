@@ -19,7 +19,7 @@ PREFIX = /dev/null
 SAMPLES = ${CPP_SAMPLES} ${SYCL_SAMPLES} ${FORTRAN_SAMPLES}
 SAMPLE_OUTS = $(foreach s,${SAMPLES},${s}.out)
 
-CXXFLAGS += -Wall
+CXXFLAGS += -Wall -v
 
 all: ${SAMPLES}
 
