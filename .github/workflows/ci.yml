@@ -35,6 +35,8 @@ jobs:
         part: [gcc_1, gcc_2, virtual, ilp64]
     name: ${{ matrix.part }}
     steps:
+    - name: CPUtype
+      run: lscpu
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
     - name: Install prerequisites
@@ -78,6 +80,8 @@ jobs:
         os: [ubuntu-20.04]
     name: ${{ matrix.compiler }}_${{ matrix.part }}
     steps:
+    - name: CPUtype
+      run: lscpu
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
     - name: Install prerequisites
