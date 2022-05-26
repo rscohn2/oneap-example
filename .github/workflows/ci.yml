@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: alalazo/spack
-  SPACK_BRANCH: fixes/oneapi_flags
+  SPACK_REPO: spack/spack
+  SPACK_BRANCH: develop
 
 jobs:
   checks:
@@ -97,7 +97,6 @@ jobs:
     - name: Package tests
       run: |
         source spack/share/spack/setup-env.sh
-        export SPACK_DEBUG=true
         spack repo add ./repo
         spack install intel-oneapi-compilers
         spack clean --downloads
