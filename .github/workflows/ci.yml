@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: rscohn2/spack
-  SPACK_BRANCH: dev/debug
+  SPACK_REPO: alalazo/spack
+  SPACK_BRANCH: fixes/oneapi_flags
 
 jobs:
   checks:
