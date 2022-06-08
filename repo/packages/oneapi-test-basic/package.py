@@ -12,7 +12,8 @@ class OneapiTestBasic(Package):
     """Test oneapi package for spack."""
 
     homepage = "https://github.com/rscohn2/oneapi-spack-tests"
-    url = "https://github.com/rscohn2/oneapi-spack-tests/tarball/main"
+    git = "https://github.com/rscohn2/oneapi-spack-tests.git"
+    version('main', branch='main')
 
     maintainers = ["rscohn2"]
 
