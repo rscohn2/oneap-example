@@ -115,7 +115,7 @@ def test_ilp64(clean, component):
     spack_install(f'oneapi-test-basic +ilp64 +{component}')
 
 
-virtual_packages = ['tbb', 'mkl', 'mpi', 'scalapack']
+virtual_packages = ['tbb', 'mkl', 'mpi', 'scalapack', 'igc']
 
 
 @pytest.mark.parametrize('package', virtual_packages)
@@ -129,7 +129,9 @@ def test_virtual(clean, package):
         )
     else:
         spack_install(
-            (
+            'oneapi-test-basic +virtual +igc'
+            if package == 'igc'
+            else (
                 f'oneapi-test-basic +virtual +{package}'
                 f' ^intel-oneapi-{package}'
             )

@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2020 Intel Corporation
+#
+# SPDX-License-Identifier: MIT
+
+packages:
+  oneapi-igc-external:
+    externals:
+    - spec: oneapi-igc-external@1.0.10409
+      prefix: /usr

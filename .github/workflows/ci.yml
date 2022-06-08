@@ -53,6 +53,7 @@ jobs:
       run: |
         source spack/share/spack/setup-env.sh
         spack repo add ./repo
+        cp packages.yaml spack/etc/spack
         pytest -s tests/test_packages.py::test_${{ matrix.part }}
     - name: Load test
       run: |
@@ -97,6 +98,7 @@ jobs:
     - name: Package tests
       run: |
         source spack/share/spack/setup-env.sh
+        cp packages.yaml spack/etc/spack
         spack repo add ./repo
         spack install intel-oneapi-compilers
         spack clean --downloads
