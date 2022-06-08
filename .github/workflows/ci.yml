@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: skosukhin/spack
+  SPACK_BRANCH: intel_oneapi_rpaths
 
 jobs:
   checks:
