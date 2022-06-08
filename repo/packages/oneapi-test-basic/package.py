@@ -14,6 +14,7 @@ class OneapiTestBasic(Package):
     homepage = "https://github.com/rscohn2/oneapi-spack-tests"
     git = "https://github.com/rscohn2/oneapi-spack-tests.git"
     version('main', branch='main')
+    version('igc-test', branch='dev/igc')
 
     maintainers = ["rscohn2"]
 
@@ -32,6 +33,7 @@ class OneapiTestBasic(Package):
         'dnn',
         'dpl',
         'fortran',
+        'igc',
         'ipp',
         'ippcp',
         'mkl',
@@ -64,6 +66,7 @@ class OneapiTestBasic(Package):
     depends_on(f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64')
     depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64')
 
+    depends_on('igc', when='+igc +virtual')
     depends_on('tbb', when='+tbb +virtual')
     depends_on('mkl', when='+mkl +virtual')
     depends_on('mpi', when='+mpi +virtual')
@@ -79,7 +82,7 @@ class OneapiTestBasic(Package):
                     targets.append(
                         f'MPI_PREFIX={self.spec["mpi"].prefix}/mpi/latest'
                     )
-                if c in ['scalapack', 'mkl', 'mpi']:
+                if c in ['scalapack', 'mkl', 'mpi', 'igc']:
                     targets.append(
                         f'{c.upper()}_LD_FLAGS={self.spec[c].libs.ld_flags}'
                     )

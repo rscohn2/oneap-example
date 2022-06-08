@@ -8,6 +8,7 @@ IPP_LD_FLAGS ?= -lippcore
 DAL_LD_FLAGS ?= -lonedal_core -lonedal_sequential
 TBB_LD_FLAGS ?= -ltbb
 DNN_LD_FLAGS ?= -ldnnl
+IGC_LD_FLAGS ?= -ligc
 SCALAPACK_LD_FLAGS ?= -lmkl_scalapack_lp64 -lmkl_cdft_core -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64
 
 FORTRAN_SAMPLES = fortran-sample
@@ -60,6 +61,13 @@ tbb-sample: tbb-sample.cpp
 	cp $@ ${PREFIX}
 
 tbb-sample.out: tbb-sample
+	./$< > $@
+
+igc-sample: igc-sample.cpp
+	${CXX} ${CXXFLAGS} $< -o $@ ${IGC_LD_FLAGS}
+	cp $@ ${PREFIX}
+
+igc-sample.out: igc-sample
 	./$< > $@
 
 dal-sample: dal-sample.cpp
