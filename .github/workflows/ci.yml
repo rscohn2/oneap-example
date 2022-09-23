@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: akhursev/spack
+  SPACK_BRANCH: intel-oneapi-2022.3.0-release
 
 jobs:
   checks:
