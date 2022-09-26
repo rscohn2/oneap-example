@@ -69,8 +69,6 @@ class OneapiTestBasic(Package):
     depends_on('mpi', when='+mpi +virtual')
     depends_on('scalapack', when='+scalapack +virtual')
 
-    version('main')
-
     def install(self, spec, prefix):
         targets = []
         for c in OneapiTestBasic.samples:
