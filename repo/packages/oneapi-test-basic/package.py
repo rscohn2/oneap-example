@@ -56,19 +56,19 @@ class OneapiTestBasic(Package):
     for c in samples:
         variant(c, default=False, description=f'Test {c}')
         if c in components:
-            depends_on(f'intel-oneapi-{c}', when=f'+{c} -virtual')
-            depends_on(f'intel-oneapi-{c}', when='+all -virtual')
+            depends_on(f'intel-oneapi-{c}', when=f'+{c} -virtual', type='link')
+            depends_on(f'intel-oneapi-{c}', when='+all -virtual', type='link')
     depends_on(
         f'intel-oneapi-mpi +external-libfabric',
         when='+mpi -virtual +external-libfabric',
     )
-    depends_on(f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64')
-    depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64')
+    depends_on(f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64', type='link')
+    depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64', type='link')
 
-    depends_on('tbb', when='+tbb +virtual')
-    depends_on('mkl', when='+mkl +virtual')
-    depends_on('mpi', when='+mpi +virtual')
-    depends_on('scalapack', when='+scalapack +virtual')
+    depends_on('tbb', when='+tbb +virtual', type='link')
+    depends_on('mkl', when='+mkl +virtual', type='link')
+    depends_on('mpi', when='+mpi +virtual', type='link')
+    depends_on('scalapack', when='+scalapack +virtual', type='link')
 
     version('main')
 
