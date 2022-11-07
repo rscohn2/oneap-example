@@ -62,8 +62,12 @@ class OneapiTestBasic(Package):
         f'intel-oneapi-mpi +external-libfabric',
         when='+mpi -virtual +external-libfabric',
     )
-    depends_on(f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64', type='link')
-    depends_on(f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64', type='link')
+    depends_on(
+        f'intel-oneapi-mpi +ilp64', when='+mpi -virtual +ilp64', type='link'
+    )
+    depends_on(
+        f'intel-oneapi-mkl +ilp64', when='+mkl -virtual +ilp64', type='link'
+    )
 
     depends_on('tbb', when='+tbb +virtual', type='link')
     depends_on('mkl', when='+mkl +virtual', type='link')
