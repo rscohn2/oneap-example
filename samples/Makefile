@@ -38,6 +38,7 @@ cpp-sample.out: cpp-sample
 	./$< > $@
 
 mkl-sample: mkl-sample.cpp
+	pkg-config --libs mkl-dynamic-lp64-seq
 	${CXX} ${CXXFLAGS} $< -o $@ ${MKL_LD_FLAGS}
 	cp $@ ${PREFIX}
 
