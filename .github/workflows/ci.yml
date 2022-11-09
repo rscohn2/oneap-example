@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: rscohn2/spack
+  SPACK_BRANCH: dev/mkl-link-optins
 
 jobs:
   checks:
