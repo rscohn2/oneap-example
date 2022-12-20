@@ -5,7 +5,7 @@
 VPL_LD_FLAGS ?= -lvpl
 IPPCP_LD_FLAGS ?= -lippcp
 IPP_LD_FLAGS ?= -lippcore
-DAL_LD_FLAGS ?= -lonedal_core -lonedal_sequential
+DAL_LD_FLAGS ?= -lonedal_core -lonedal_thread -ltbb -ltbbmalloc
 TBB_LD_FLAGS ?= -ltbb
 DNN_LD_FLAGS ?= -ldnnl
 SCALAPACK_LD_FLAGS ?= -lmkl_scalapack_lp64 -lmkl_cdft_core -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64
