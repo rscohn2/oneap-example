@@ -9,8 +9,8 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: prstrnn/spack
+  SPACK_BRANCH: intel-oneapi-2023.2.0-release-1
 
 jobs:
   checks:
