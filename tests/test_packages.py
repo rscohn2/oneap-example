@@ -19,7 +19,7 @@ def spack_install(options):
     # checksums are not right because source is in this
     # repo. fail-fast is needed to make spack return a non zero error
     # code when a dependency fails
-    shell(f'spack install  --fail-fast {options}')
+    shell(f'spack --config-scope spack-config install --fail-fast {options}')
     # github actions have limited space, so delete cached downloads
     if 'GITHUB_WORKFLOW' in os.environ:
         shell('spack clean --downloads')
