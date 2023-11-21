@@ -80,15 +80,17 @@ class OneapiTestBasic(Package):
         targets = []
         for c in OneapiTestBasic.samples:
             if '+all' in self.spec or f'+{c}' in self.spec:
-                component_spec = self.spec[f'intel-oneapi-{c}']
-                tty.debug(
-                    (
-                        f'{c}\n'
-                        f' include directories: {component_spec.headers.directories}\n'
-                        f' libraries: {component_spec.libs}\n'
-                        f' library directories: {component_spec.libs.directories}\n'
+                if f'intel-oneapi-{c}' in self.spec:
+                    component_spec = self.spec[f'intel-oneapi-{c}']
+                    tty.debug(
+                        (
+                            f'{c}\n'
+                            f' include files: {component_spec.headers}\n'
+                            f' include directories: {component_spec.headers.directories}\n'
+                            f' libraries: {component_spec.libs}\n'
+                            f' library directories: {component_spec.libs.directories}\n'
+                        )
                     )
-                )
                 if c == 'mpi':
                     targets.append(
                         f'MPI_PREFIX={self.spec["mpi"].prefix}/mpi/latest'
