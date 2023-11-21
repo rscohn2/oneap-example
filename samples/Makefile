@@ -74,8 +74,8 @@ mpi-sample: mpi-sample.cpp
 	# Check if environment is set up
 	ls ${I_MPI_ROOT}/lib/debug_mt
 	${CXX} ${CXXFLAGS} $< -o $@ ${MPI_LD_FLAGS}
-	${MPI_PREFIX}/bin/mpigcc $< -o $@.mpigcc
-	cp $@ $@.mpigcc ${PREFIX}
+	${MPI_PREFIX}/bin/mpicxx $< -o $@.mpicxx
+	cp $@ $@.mpicxx ${PREFIX}
 
 mpi-sample.out: mpi-sample
 	# need to set up environment to run
