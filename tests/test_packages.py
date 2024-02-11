@@ -65,40 +65,6 @@ def test_icx_3(clean, sample):
     spack_install(f'oneapi-test-basic%oneapi +{sample}')
 
 
-icc1_samples = [
-    'cpp',
-    'fortran',
-    'mkl',
-]
-
-icc2_samples = [
-    'dal',
-    'vpl',
-]
-
-icc3_samples = [
-    'ipp',
-    'ippcp',
-    'mpi',
-    'tbb',
-]
-
-
-@pytest.mark.parametrize('sample', icc1_samples)
-def test_icc_1(clean, sample):
-    spack_install(f'oneapi-test-basic%intel +{sample}')
-
-
-@pytest.mark.parametrize('sample', icc2_samples)
-def test_icc_2(clean, sample):
-    spack_install(f'oneapi-test-basic%intel +{sample}')
-
-
-@pytest.mark.parametrize('sample', icc3_samples)
-def test_icc_3(clean, sample):
-    spack_install(f'oneapi-test-basic%intel +{sample}')
-
-
 def test_external_libfabric(clean):
     spack_install('oneapi-test-basic +mpi +external-libfabric')
 

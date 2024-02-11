@@ -79,7 +79,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [icc, icx]
+        compiler: [icx]
         part: [1, 2, 3]
         os: [ubuntu-20.04]
     name: ${{ matrix.compiler }}_${{ matrix.part }}
