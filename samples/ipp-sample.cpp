@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "ippcore.h"
+#include "ipp.h"
 
 int main() {
   const IppLibraryVersion *lib;
