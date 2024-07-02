@@ -9,12 +9,12 @@ on:
   pull_request:
 
 env:
-  SPACK_REPO: spack/spack
-  SPACK_BRANCH: develop
+  SPACK_REPO: rscohn2/spack
+  SPACK_BRANCH: dev/icpx-nopatch
 
 jobs:
   checks:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
