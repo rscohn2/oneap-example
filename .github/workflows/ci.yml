@@ -16,8 +16,8 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
     - name: Install prerequisites
@@ -38,8 +38,8 @@ jobs:
     steps:
     - name: CPUtype
       run: lscpu
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
     - name: Install prerequisites
@@ -47,7 +47,7 @@ jobs:
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
     - name: Install spack
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: ${{ env.SPACK_REPO }}
         path: spack
@@ -61,7 +61,7 @@ jobs:
       run: |
         source spack/share/spack/setup-env.sh
         pytest -s tests/test_packages.py::test_load
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: gcc-${{ matrix.part }}-logs
@@ -84,8 +84,8 @@ jobs:
     steps:
     - name: CPUtype
       run: lscpu
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
     - name: Install prerequisites
@@ -93,7 +93,7 @@ jobs:
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
     - name: Install spack
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: ${{ env.SPACK_REPO }}
         path: spack
@@ -106,7 +106,7 @@ jobs:
         spack clean --downloads
         spack compiler add `spack location -i intel-oneapi-compilers`/compiler/latest/bin
         pytest -s tests/test_packages.py::test_${{ matrix.compiler }}_${{ matrix.part }}
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: ${{ matrix.compiler }}-${{ matrix.part }}-logs
