@@ -14,7 +14,7 @@ env:
 
 jobs:
   checks:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
@@ -29,11 +29,10 @@ jobs:
         pre-commit run --all
 
   gcc:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latst
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
         part: [gcc_1, gcc_2, virtual, ilp64]
     name: ${{ matrix.part }}
     steps:
@@ -65,7 +64,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: failure()
       with:
-        name: gcc-${{ matrix.part }}-${{ matrix.os }}-logs
+        name: gcc-${{ matrix.part }}-logs
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
@@ -75,13 +74,12 @@ jobs:
         retention-days: 7
 
   intel-compiler:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         compiler: [icx]
         part: [1, 2, 3]
-        os: [ubuntu-20.04]
     name: ${{ matrix.compiler }}_${{ matrix.part }}
     steps:
     - name: CPUtype
@@ -111,7 +109,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: failure()
       with:
-        name: ${{ matrix.compiler }}-${{ matrix.part }}-${{ matrix.os }}-logs
+        name: ${{ matrix.compiler }}-${{ matrix.part }}-logs
         path: |
           /tmp/runner/spack-stage/
           /tmp/runner/intel-oneapi-installer/
