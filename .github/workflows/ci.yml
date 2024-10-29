@@ -10,7 +10,7 @@ on:
 
 env:
   SPACK_REPO: prstrnn/spack
-  SPACK_BRANCH: intel-oneapi-2024.5.0
+  SPACK_BRANCH: intel-oneapi-2025.0.0
 
 jobs:
   checks:
